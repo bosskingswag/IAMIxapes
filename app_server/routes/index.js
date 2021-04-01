@@ -1,7 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const ctrlMain = require('../controllers/main');
+const ctrlArtist = require('../controllers/artist');
+const ctrlOthers = require('../controllers/others');
 
-/* GET home page. */
-router.get('/', ctrlMain.index);
+/* Artist Pages */
+router.get('/', ctrlArtist.homelist);
+router.get('/artist', ctrlArtist.artistInfo);
+router.get('/artist/review/new', ctrlArtist.addReview);
+
+/* Other Pages */
+router.get('/about', ctrlOthers.about);
+
 module.exports = router;
