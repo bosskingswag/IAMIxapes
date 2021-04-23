@@ -6,7 +6,7 @@ const ctrlOthers = require('../controllers/others');
 /* Artist Pages */
 router.get('/', ctrlArtist.homelist);
 router.get('/artist', ctrlArtist.artistInfo);
-router.get('/artist/review/new', ctrlArtist.addReview);
+router.get('/artist/review/new',ctrlArtist.addReview);
 
 /* Other Pages */
 router.get('/about', ctrlOthers.about);

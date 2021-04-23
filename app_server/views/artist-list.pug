@@ -1,0 +1,73 @@
+extends layout
+include _includes/sharedHTMLfunctions
+block content
+  .row.banner
+    .col-12
+      h1=pageHeader.title
+        small &nbsp; #{pageHeader.strapLine}
+      .col-12.col-md-6.album-art
+          card.card-primary
+              .card-block
+
+                img.img-fluid.rounded(src='/images/test2.png' alt='login' style='width:500px; height:500px;')
+  .row
+   .col--12.col-md-8
+    each artist in artists
+     .card
+       .card-block
+         h4
+            a(href="/artist")=artist.name
+            +outputRating(artist.rating)
+            small &nbsp;
+
+            p.album name of album here
+     .card.card-primary
+       .card-block
+          h2.card-title Tracks
+          p.card-text 1) Wizzle Wazzle
+          p.card-text 2) Uncle Blooby
+          p.card-text 3) Max
+          p.card-text 1) The Adventures of Fluffy
+          p.card-text 1) Text 345
+  .row
+        .col-12.col-md-8
+          .card.card-primary.review-card
+            .card-block
+              a.btn.btn-primary.float-right(href='/location/review/new') add comment
+              h2.card-title Critique
+              .row.review
+                .col-12.no-gutters.review-header
+                  span.rating
+                    i.fas.fa-star
+                    i.fas.fa-star
+                    i.fas.fa-star
+                    i.fas.fa-star
+                    i.fas.fa-star
+                  span.reviewAuthor    Joe Moms
+
+                  small.reviewTimestamp    19 Deb 2021
+                .col-12
+                  p dude spits flames
+              .row.review
+                .col-12.no-gutters.review-header
+                  span.rating
+                    i.fas.fa-star
+                    i.fas.fa-star
+                    i.fas.fa-star
+                    i.fas.fa-star
+                    i.fas.fa-star
+                  span.reviewAuthor     Charlie Chaplin
+                  small.reviewTimestamp    14 Feb 2121
+                .col-12
+                  p dude is gay
+        .col-12.col-lg-3
+         p.lead
+          | lorum ipsom test 123
+         p
+          | If you leave a review i love you hugs
+
+
+
+
+        .col-12.col-md-4
+          p.lead Looking for a song that lifts your spirit while simultaneously giving Praise to the Most High?  Look no Further.
