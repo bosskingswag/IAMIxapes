@@ -11,7 +11,7 @@ const reviewSchema = new mongoose.Schema({
     createdOn: {type: Date, default: Date.now}
 });
 const artistSchema = new mongoose.Schema({
-    name: {
+    artist: {
         type: String,
         required: true,
     },

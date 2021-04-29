@@ -1,12 +1,15 @@
 const mongoose = require ('mongoose');
+const readLine = require ('readline');
 let dbURI = 'mongodb://localhost/IAMixtapes';
 if (process.env.NODE_ENV === 'production') {
-    dbURI = 'mongodb://bosskingswag:sausage123@cluster0.bbgcv.mongodb.net:27017/IAMixtapes';
+    dbURI = 'mongodb+srv://bosskingswag:sausage123@cluster0.bbgcv.mongodb.net:27017/IAMixtapes';
 }
-else {
-    mongoose.connect(dbURI);
-}
-const readLine = require ('readline');
+mongoose.connect('mongodb://localhost/IAMixtapes').then(() => {
+    console.log("Connected to the Database");
+}).catch((err) => {
+    console.log("Not Connected to Database ERROR! ", err);
+});
+
 if (process.platform === 'win32') {
     const rl = readLine.createInterface ({
         input: process.stdin,
@@ -15,11 +18,11 @@ if (process.platform === 'win32') {
     rl.on ('SIGINT', () => {
         process.emit("SIGINT");
     });
-}
 
+}
 //monitoring connection events
 mongoose.connection.on('connected',() => {
-    console.log('Mongoose connected to ${dbURI}');
+    console.log("Mongoose connected to ${dbURI}");
 })
 mongoose.connection.on('error', err => {
     console.log('Mongoose connected error');
@@ -28,19 +31,15 @@ mongoose.connection.on('disconnected',() => {
     console.log('Mongoose disconnected');
 });
 
-
 //closing connection event handler
 const gracefulShutdown = (msg, callback) => {
     mongoose.connection.close( () => {
-        console.log('Mongoose disconnected through ${msg}');
+        console.log('Mongoose disconnected through ${ msg }');
         callback();
     });
 };
 
 //node,heroku,win database termination listeners
-
-
-
 process.once('SIGUSR2', () => {
     gracefulShutdown('nodemon restart', () => {
         process.kill(process.pid, 'SIGUSR2');
@@ -56,6 +55,7 @@ process.on('SIGTERM', () => {
         process.exit(0);
     });
 });
+
 
 
 
