@@ -2,9 +2,12 @@ const mongoose = require ('mongoose');
 const readLine = require ('readline');
 let dbURI = 'mongodb://localhost/IAMixtapes';
 if (process.env.NODE_ENV === 'production') {
-    dbURI = 'mongodb+srv://bosskingswag:sausage123@cluster0.bbgcv.mongodb.net:27017/IAMixtapes';
+    dbURI = 'mongodb+srv://test:test@cluster0.bbgcv.mongodb.net/IAMixtapes?retryWrites=true&w=majority';
 }
-mongoose.connect('mongodb://localhost/IAMixtapes').then(() => {
+mongoose.connect('mongodb+srv://test:test@cluster0.bbgcv.mongodb.net/IAMixtapes?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+    }).then(() => {
     console.log("Connected to the Database");
 }).catch((err) => {
     console.log("Not Connected to Database ERROR! ", err);
@@ -22,7 +25,7 @@ if (process.platform === 'win32') {
 }
 //monitoring connection events
 mongoose.connection.on('connected',() => {
-    console.log("Mongoose connected to ${dbURI}");
+    console.log(`Mongoose connected to ${dbURI}`);
 })
 mongoose.connection.on('error', err => {
     console.log('Mongoose connected error');
@@ -34,7 +37,7 @@ mongoose.connection.on('disconnected',() => {
 //closing connection event handler
 const gracefulShutdown = (msg, callback) => {
     mongoose.connection.close( () => {
-        console.log('Mongoose disconnected through ${ msg }');
+        console.log(`Mongoose disconnected through ${msg}`);
         callback();
     });
 };
@@ -55,8 +58,5 @@ process.on('SIGTERM', () => {
         process.exit(0);
     });
 });
-
-
-
 
 require('./artists')
